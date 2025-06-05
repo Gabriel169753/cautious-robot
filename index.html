@@ -1,232 +1,225 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informações de Viagem - PDL 2025</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informações de Viagem - PDL 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        h1 {
-            color: #333;
-        }
+    h1 {
+      color: #333;
+    }
 
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
-            margin-bottom: 20px;
-        }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
 
-        input, button, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    input, button, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button:hover {
+      background-color: #45a049;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .hidden {
+      display: none;
+    }
 
-        .card {
-            background: #e3f2fd;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-        }
+    .card {
+      background: #e3f2fd;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
 
-        .card button {
-            width: auto;
-            margin-right: 5px;
-        }
-    </style>
+    .card button {
+      width: auto;
+      margin-right: 5px;
+    }
+  </style>
 </head>
 
 <body>
-    <h1>Informações de Viagem - PDL 2025</h1>
+  <h1>Informações de Viagem - PDL 2025</h1>
 
-    <div class="container">
-        <label for="matricula">Número da Matrícula:</label>
-        <input type="number" id="matricula" placeholder="Digite sua matrícula">
-        <button onclick="buscarInfo()">Buscar</button>
+  <div class="container">
+    <label for="matricula">Número da Matrícula:</label>
+    <input type="number" id="matricula" placeholder="Digite sua matrícula">
+    <button onclick="buscarInfo()">Buscar</button>
 
-        <label for="senhaAdmin">Acesso Administrador:</label>
-        <input type="password" id="senhaAdmin" placeholder="Digite a senha">
-        <button onclick="acessarAdmin()">Entrar</button>
-    </div>
+    <label for="senhaAdmin">Acesso Administrador:</label>
+    <input type="password" id="senhaAdmin" placeholder="Digite a senha">
+    <button onclick="acessarAdmin()">Entrar</button>
+  </div>
 
-    <div class="container hidden" id="resultado"></div>
+  <div class="container hidden" id="resultado"></div>
 
-    <div class="container hidden" id="adminPanel">
-        <h2>Administração</h2>
+  <div class="container hidden" id="adminPanel">
+    <h2>Administração</h2>
 
-        <input type="number" id="admMatricula" placeholder="Matrícula">
-        <input type="text" id="admNome" placeholder="Nome do Colaborador">
-        <input type="text" id="admVooIda" placeholder="Voo de Ida">
-        <input type="text" id="admLocIda" placeholder="Localizador Ida">
-        <input type="text" id="admVooVolta" placeholder="Voo de Volta">
-        <input type="text" id="admLocVolta" placeholder="Localizador Volta">
-        <input type="text" id="admHotel" placeholder="Nome do Hotel">
-        <input type="text" id="admEndereco" placeholder="Endereço do Hotel">
-        <input type="text" id="admTipoQuarto" placeholder="Tipo de Quarto">
-        <textarea id="admInfoAdicional" placeholder="Informações Adicionais"></textarea>
+    <input type="number" id="admMatricula" placeholder="Matrícula">
+    <input type="text" id="admNome" placeholder="Nome do Colaborador">
+    <input type="text" id="admVooIda" placeholder="Voo de Ida">
+    <input type="text" id="admLocIda" placeholder="Localizador Ida">
+    <input type="text" id="admVooVolta" placeholder="Voo de Volta">
+    <input type="text" id="admLocVolta" placeholder="Localizador Volta">
+    <input type="text" id="admHotel" placeholder="Nome do Hotel">
+    <input type="text" id="admEndereco" placeholder="Endereço do Hotel">
+    <input type="text" id="admTipoQuarto" placeholder="Tipo de Quarto">
+    <textarea id="admInfoAdicional" placeholder="Informações Adicionais"></textarea>
 
-        <button onclick="adicionarRegistro()">Adicionar Registro</button>
+    <button onclick="adicionarRegistro()">Adicionar Registro</button>
 
-        <input type="file" id="fileInput" accept=".xlsx">
-        <button onclick="importarXLSX()">Importar Planilha</button>
+    <div id="registros"></div>
+  </div>
 
-        <button onclick="baixarXLSX()">Baixar Planilha Modelo</button>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-        <div id="registros"></div>
-    </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzXnXzsJjpPjKfjT1n38Kx2xUyqQwHT_4",
+      authDomain: "viagem-pdl.firebaseapp.com",
+      databaseURL: "https://viagem-pdl-default-rtdb.firebaseio.com",
+      projectId: "viagem-pdl",
+      storageBucket: "viagem-pdl.firebasestorage.app",
+      messagingSenderId: "764937602488",
+      appId: "1:764937602488:web:84af3f17db3b506a037b4d",
+      measurementId: "G-2TP50MCKE3"
+    };
 
-    <script>
-        let bancoDados = JSON.parse(localStorage.getItem('bancoDados')) || [];
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-        function salvarBanco() {
-            localStorage.setItem('bancoDados', JSON.stringify(bancoDados));
-        }
+    let bancoDados = [];
 
-        function buscarInfo() {
-            const matricula = document.getElementById('matricula').value;
-            const resultado = document.getElementById('resultado');
-            const registro = bancoDados.find(r => r.matricula === matricula);
-            resultado.innerHTML = '';
-            resultado.classList.remove('hidden');
-            if (registro) {
-                resultado.innerHTML = `
-                    <div class='card'>
-                        <strong>Nome:</strong> ${registro.nome}<br>
-                        <strong>Voo Ida:</strong> ${registro.vooIda} (${registro.locIda})<br>
-                        <strong>Voo Volta:</strong> ${registro.vooVolta} (${registro.locVolta})<br>
-                        <strong>Hotel:</strong> ${registro.hotel}, ${registro.endereco}, ${registro.tipoQuarto}<br>
-                        <strong>Info:</strong> ${registro.infoAdicional}
-                    </div>
-                `;
-            } else {
-                resultado.innerHTML = '<div class="card">Matrícula não encontrada.</div>';
-            }
-        }
-
-        function acessarAdmin() {
-            const senha = document.getElementById('senhaAdmin').value;
-            if (senha === 'admin123') {
-                document.getElementById('adminPanel').classList.remove('hidden');
-                listarRegistros();
-            } else {
-                alert('Senha incorreta');
-            }
-        }
-
-        function adicionarRegistro() {
-            const novo = {
-                matricula: document.getElementById('admMatricula').value,
-                nome: document.getElementById('admNome').value,
-                vooIda: document.getElementById('admVooIda').value,
-                locIda: document.getElementById('admLocIda').value,
-                vooVolta: document.getElementById('admVooVolta').value,
-                locVolta: document.getElementById('admLocVolta').value,
-                hotel: document.getElementById('admHotel').value,
-                endereco: document.getElementById('admEndereco').value,
-                tipoQuarto: document.getElementById('admTipoQuarto').value,
-                infoAdicional: document.getElementById('admInfoAdicional').value
-            };
-            bancoDados.push(novo);
-            salvarBanco();
-            listarRegistros();
-            alert('Registro adicionado!');
-        }
-
-        function listarRegistros() {
-            const container = document.getElementById('registros');
-            container.innerHTML = '';
-            bancoDados.forEach((r, index) => {
-                container.innerHTML += `
-                    <div class='card'>
-                        <strong>${r.matricula} - ${r.nome}</strong><br>
-                        <button onclick='editarRegistro(${index})'>Editar</button>
-                        <button onclick='excluirRegistro(${index})'>Excluir</button>
-                    </div>
-                `;
-            });
-        }
-
-        function editarRegistro(index) {
-            const r = bancoDados[index];
-            document.getElementById('admMatricula').value = r.matricula;
-            document.getElementById('admNome').value = r.nome;
-            document.getElementById('admVooIda').value = r.vooIda;
-            document.getElementById('admLocIda').value = r.locIda;
-            document.getElementById('admVooVolta').value = r.vooVolta;
-            document.getElementById('admLocVolta').value = r.locVolta;
-            document.getElementById('admHotel').value = r.hotel;
-            document.getElementById('admEndereco').value = r.endereco;
-            document.getElementById('admTipoQuarto').value = r.tipoQuarto;
-            document.getElementById('admInfoAdicional').value = r.infoAdicional;
-            excluirRegistro(index);
-        }
-
-        function excluirRegistro(index) {
-            bancoDados.splice(index, 1);
-            salvarBanco();
-            listarRegistros();
-            alert('Registro excluído!');
-        }
-
-        function baixarXLSX() {
-            const ws = XLSX.utils.json_to_sheet(bancoDados.length ? bancoDados : [{
-                matricula: '', nome: '', vooIda: '', locIda: '', vooVolta: '', locVolta: '', hotel: '', endereco: '', tipoQuarto: '', infoAdicional: ''
-            }]);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Viagens');
-            XLSX.writeFile(wb, 'viagens_modelo.xlsx');
-        }
-
-        function importarXLSX() {
-            const file = document.getElementById('fileInput').files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                const json = XLSX.utils.sheet_to_json(sheet);
-                bancoDados = bancoDados.concat(json);
-                salvarBanco();
-                listarRegistros();
-                alert('Importação concluída!');
-            };
-            reader.readAsArrayBuffer(file);
-        }
-
+    function carregarBanco() {
+      const dbRef = ref(db, 'bancoDados');
+      onValue(dbRef, (snapshot) => {
+        const data = snapshot.val();
+        bancoDados = data ? data : [];
         listarRegistros();
-    </script>
-</body>
+      });
+    }
 
+    function salvarBanco() {
+      set(ref(db, 'bancoDados'), bancoDados);
+    }
+
+    window.buscarInfo = function() {
+      const matricula = document.getElementById('matricula').value;
+      const resultado = document.getElementById('resultado');
+      const registro = bancoDados.find(r => r.matricula === matricula);
+      resultado.innerHTML = '';
+      resultado.classList.remove('hidden');
+      if (registro) {
+        resultado.innerHTML = `
+          <div class='card'>
+            <strong>Nome:</strong> ${registro.nome}<br>
+            <strong>Voo Ida:</strong> ${registro.vooIda} (${registro.locIda})<br>
+            <strong>Voo Volta:</strong> ${registro.vooVolta} (${registro.locVolta})<br>
+            <strong>Hotel:</strong> ${registro.hotel}, ${registro.endereco}, ${registro.tipoQuarto}<br>
+            <strong>Info:</strong> ${registro.infoAdicional}
+          </div>
+        `;
+      } else {
+        resultado.innerHTML = '<div class="card">Matrícula não encontrada.</div>';
+      }
+    }
+
+    window.acessarAdmin = function() {
+      const senha = document.getElementById('senhaAdmin').value;
+      if (senha === 'admin123') {
+        document.getElementById('adminPanel').classList.remove('hidden');
+        listarRegistros();
+      } else {
+        alert('Senha incorreta');
+      }
+    }
+
+    window.adicionarRegistro = function() {
+      const novo = {
+        matricula: document.getElementById('admMatricula').value,
+        nome: document.getElementById('admNome').value,
+        vooIda: document.getElementById('admVooIda').value,
+        locIda: document.getElementById('admLocIda').value,
+        vooVolta: document.getElementById('admVooVolta').value,
+        locVolta: document.getElementById('admLocVolta').value,
+        hotel: document.getElementById('admHotel').value,
+        endereco: document.getElementById('admEndereco').value,
+        tipoQuarto: document.getElementById('admTipoQuarto').value,
+        infoAdicional: document.getElementById('admInfoAdicional').value
+      };
+      bancoDados.push(novo);
+      salvarBanco();
+      listarRegistros();
+      alert('Registro adicionado!');
+    }
+
+    window.listarRegistros = function() {
+      const container = document.getElementById('registros');
+      container.innerHTML = '';
+      bancoDados.forEach((r, index) => {
+        container.innerHTML += `
+          <div class='card'>
+            <strong>${r.matricula} - ${r.nome}</strong><br>
+            <button onclick='editarRegistro(${index})'>Editar</button>
+            <button onclick='excluirRegistro(${index})'>Excluir</button>
+          </div>
+        `;
+      });
+    }
+
+    window.editarRegistro = function(index) {
+      const r = bancoDados[index];
+      document.getElementById('admMatricula').value = r.matricula;
+      document.getElementById('admNome').value = r.nome;
+      document.getElementById('admVooIda').value = r.vooIda;
+      document.getElementById('admLocIda').value = r.locIda;
+      document.getElementById('admVooVolta').value = r.vooVolta;
+      document.getElementById('admLocVolta').value = r.locVolta;
+      document.getElementById('admHotel').value = r.hotel;
+      document.getElementById('admEndereco').value = r.endereco;
+      document.getElementById('admTipoQuarto').value = r.tipoQuarto;
+      document.getElementById('admInfoAdicional').value = r.infoAdicional;
+      excluirRegistro(index);
+    }
+
+    window.excluirRegistro = function(index) {
+      bancoDados.splice(index, 1);
+      salvarBanco();
+      listarRegistros();
+      alert('Registro excluído!');
+    }
+
+    carregarBanco();
+  </script>
+</body>
 </html>
